@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pooja Booking - Maa Baglamukhi Mandir</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        /* 1. Mobile Tap Highlight Hatana (Blue/Grey Box) */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* 2. Click/Focus karne par Blue Border Hatana */
+*:focus {
+    outline: none;
+    box-shadow: none;
+}
+        /* --- VARIABLES (SAME AS ABOUT PAGE) --- */
+        :root {
+            --primary-red: #b71c1c;
+            --gold: #d4af37;
+            --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f5e7c1 100%);
+            --dark-bg: #1a120b;
+            --cream: #f9f5e7;
+            --text-dark: #2c241b;
+            --text-light: #f5f5f5;
+            --shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.08);
+            --shadow-card: 0 15px 35px rgba(212, 175, 55, 0.15); /* Golden Shadow */
+            --whatsapp-green: #25D366;
+            --transition: all 0.4s ease;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Hind', sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            overflow-x: hidden;
+            background-image: radial-gradient(#d4af37 0.5px, transparent 0.5px), radial-gradient(#d4af37 0.5px, var(--cream) 0.5px);
+            background-size: 20px 20px;
+        }
+
+        .container { width: 100%; max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* --- HEADER (EXACTLY SAME AS ABOUT PAGE) --- */
+        header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+            padding: 10px 0;
+            transition: var(--transition);
+        }
+        
+        .header-container { display: flex; justify-content: space-between; align-items: center; }
+        .header-logo { height: 55px; transition: var(--transition); }
+        .header-logo:hover { transform: scale(1.05); }
+        
+        .nav-links { display: flex; gap: 35px; align-items: center; }
+        .nav-link {
+            text-decoration: none; color: var(--text-dark); font-weight: 600; font-size: 1rem;
+            text-transform: uppercase; letter-spacing: 0.5px; transition: var(--transition); position: relative; padding: 5px 0;
+        }
+        .nav-link::after { content: ''; position: absolute; bottom: 0; left: 0; width: 0; height: 2px; background: var(--primary-red); transition: var(--transition); }
+        .nav-link:hover { color: var(--primary-red); }
+        .nav-link:hover::after { width: 100%; }
+
+        /* --- PAGE BANNER --- */
+        .page-header {
+            height: 50vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('/assets/img/banner-slide2.webp');
+            background-attachment: fixed; background-position: center; background-size: cover;
+            display: flex; align-items: center; justify-content: center; text-align: center;
+            margin-top: 75px; position: relative;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 50% 100%, 0 90%);
+        }
+        .page-title { color: var(--light-gold); font-family: 'Playfair Display', serif; font-size: 4rem; margin-bottom: 10px; text-shadow: 0 5px 15px rgba(0,0,0,0.5); animation: slideDown 1s ease; }
+        .breadcrumb { color: #fff; font-size: 1.1rem; letter-spacing: 2px; text-transform: uppercase; animation: fadeIn 1.5s ease; }
+        .breadcrumb span { color: var(--gold); font-weight: bold; }
+
+        /* --- BOOKING SECTION (LIGHT THEME) --- */
+        .booking-section { padding: 80px 0; }
+        .booking-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 50px; }
+
+        /* Form Card */
+        .booking-form-card {
+            background: #fff; padding: 40px; border-radius: 20px;
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            position: relative; overflow: hidden;
+            animation: slideUp 1s ease;
+        }
+        .booking-form-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--primary-red); }
+
+        .form-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--primary-red); margin-bottom: 30px; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-label { display: block; font-weight: 600; margin-bottom: 8px; color: #444; font-size: 0.95rem; }
+        
+        .form-control {
+            width: 100%; padding: 15px; border: 1px solid #e0e0e0; border-radius: 10px;
+            font-family: 'Hind', sans-serif; font-size: 1rem; transition: var(--transition);
+            background: #fdfbf7; color: #333;
+        }
+        .form-control:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 10px rgba(212, 175, 55, 0.1); background: #fff; }
+
+        .submit-btn {
+            width: 100%; padding: 16px; background: var(--primary-red); color: white; border: none;
+            border-radius: 50px; font-size: 1.1rem; font-weight: 700; cursor: pointer;
+            transition: var(--transition); margin-top: 15px; letter-spacing: 1px;
+            box-shadow: 0 10px 20px rgba(183, 28, 28, 0.2);
+            display: flex; justify-content: center; align-items: center; gap: 10px;
+        }
+        .submit-btn:hover { background: #8e0e0e; transform: translateY(-3px); box-shadow: 0 15px 25px rgba(183, 28, 28, 0.3); }
+
+        /* --- SIDEBAR (LIGHT & PREMIUM) --- */
+        .sidebar-card {
+            background: white; color: var(--text-dark); padding: 40px; border-radius: 20px;
+            position: relative; overflow: hidden; height: fit-content;
+            border: 1px solid rgba(212, 175, 55, 0.3); /* Light Gold Border */
+            box-shadow: var(--shadow-card);
+            animation: slideUp 1.2s ease;
+        }
+        
+        /* Decorative Mandala Background */
+        .sidebar-card::after {
+            content: 'ॐ'; position: absolute; bottom: -30px; right: -30px; font-size: 18rem; color: var(--gold); opacity: 0.05; pointer-events: none;
+        }
+
+        .contact-title { font-family: 'Playfair Display'; font-size: 1.8rem; color: var(--primary-red); margin-bottom: 30px; border-bottom: 2px solid var(--cream); padding-bottom: 10px; }
+
+        .contact-item { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 25px; }
+        .contact-icon {
+            width: 45px; height: 45px; background: var(--cream); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 1.1rem; color: var(--primary-red);
+            flex-shrink: 0; border: 1px solid rgba(183, 28, 28, 0.1);
+        }
+        .contact-label { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: #888; margin-bottom: 3px; }
+        .contact-value { font-size: 1.1rem; font-weight: 600; color: #333; font-family: 'Playfair Display', serif; }
+        .contact-link { color: #333; text-decoration: none; transition: 0.3s; }
+        .contact-link:hover { color: var(--primary-red); }
+
+        /* Pooja List */
+        .pooja-list { margin-top: 30px; background: var(--cream); padding: 25px; border-radius: 15px; }
+        .pooja-list h3 { color: var(--dark-bg); font-family: 'Playfair Display'; margin-bottom: 15px; font-size: 1.2rem; }
+        .pooja-list ul { list-style: none; }
+        .pooja-list li { margin-bottom: 12px; display: flex; align-items: center; gap: 12px; color: #555; font-size: 0.95rem; }
+        .pooja-list li i { color: var(--gold); }
+
+        /* --- FOOTER (SAME STYLE) --- */
+        footer { background-color: var(--dark-bg); color: var(--text-light); padding: 80px 0 30px; border-top: 5px solid var(--gold); margin-top: 50px; }
+        .footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; }
+        .footer-column h3 { color: var(--gold); font-family: 'Playfair Display', serif; margin-bottom: 25px; font-size: 1.5rem; }
+        .footer-links li { margin-bottom: 10px; list-style: none; }
+        .footer-links a { color: #aaa; text-decoration: none; transition: 0.3s; }
+        .footer-links a:hover { color: var(--gold); }
+        .copyright { text-align: center; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.1); margin-top: 60px; color: #888; }
+
+        /* --- MOBILE MENU & ANIMATIONS --- */
+        .menu-toggle { display: none; font-size: 1.8rem; color: var(--primary-red); cursor: pointer; z-index: 1001; }
+        
+        @keyframes slideDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(50px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        @media (max-width: 992px) {
+            .booking-grid { grid-template-columns: 1fr; gap: 40px; }
+            .sidebar-card { order: -1; } /* Info first on mobile */
+            
+            /* Slide Menu Logic */
+            .nav-links {
+                position: fixed; top: 0; right: -100%;
+                width: 75%; height: 100vh; background: white;
+                flex-direction: column; justify-content: center;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+                transition: 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+                z-index: 1000;
+            }
+            .nav-links.active { right: 0; }
+            .menu-toggle { display: block; }
+            .page-title { font-size: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="/">
+                    <img src="/assets/img/maa-logo.webp" alt="Maa Baglamukhi Mandir" class="header-logo">
+                </a>
+            </div>
+            
+            <div class="menu-toggle" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <nav class="nav-links" id="navLinks">
+                <a href=/" class="nav-link"><i class="fas fa-home"></i> Home</a>
+                <a href="about" class="nav-link"><i class="fas fa-info-circle"></i> About Mandir</a>
+                <a href="booking" class="nav-link" style="color: var(--primary-red);"><i class="fas fa-book"></i> Pooja Booking</a>
+                <a href="gallery" class="nav-link"><i class="fas fa-images"></i> Gallery</a>
+                <a href="contact" class="nav-link"><i class="fas fa-phone"></i> Contact Us</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Pooja Booking</h1>
+            <div class="breadcrumb">Home / <span>Booking</span></div>
+        </div>
+    </section>
+
+    <section class="booking-section">
+        <div class="container">
+            <div class="booking-grid">
+                
+                <div class="booking-form-card">
+                    <h2 class="form-title">Enter Your Details</h2>
+                    <form id="poojaForm" onsubmit="sendToWhatsapp(event)">
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div class="form-group">
+                                <label class="form-label">Full Name (यजमान का नाम)</label>
+                                <input type="text" id="name" class="form-control" placeholder="Enter full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Gotra (गोत्र)</label>
+                                <input type="text" id="gotra" class="form-control" placeholder="Enter Gotra" required>
+                            </div>
+                        </div>
+
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                            <div class="form-group">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" id="phone" class="form-control" placeholder="+91 97548xxxxx" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Select Date</label>
+                                <input type="date" id="date" class="form-control" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Select Pooja Type</label>
+                            <select id="poojaType" class="form-control" required>
+                                <option value="" disabled selected>Select Pooja...</option>
+                                <option value="Havan Pujan">Havan Pujan (हवन पूजन)</option>
+                                <option value="Chola Booking">Chola Booking (चोला)</option>
+                                <option value="Special Anushthan">Special Anushthan (विशेष अनुष्ठान)</option>
+                                <option value="Online Pooja">Online Pooja (ऑनलाइन पूजा)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Message (Optional)</label>
+                            <textarea id="message" class="form-control" rows="4" placeholder="Any specific wish or sankalp..."></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">
+                            Book on WhatsApp <i class="fab fa-whatsapp" style="font-size: 1.2rem;"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <aside class="sidebar-card">
+                    <h2 class="contact-title">Contact Us</h2>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+                        <div>
+                            <div class="contact-label">Call / WhatsApp</div>
+                            <div class="contact-value">
+                                <a href="tel:+919754864696" class="contact-link">+91 9754864696</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-envelope"></i></div>
+                        <div>
+                            <div class="contact-label">Email Address</div>
+                            <div class="contact-value" style="font-size: 1rem;">
+                                <a href="mailto:info@maabaglamukhimandir.com" class="contact-link">info@maabaglamukhimandir.com</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div>
+                            <div class="contact-label">Location</div>
+                            <div class="contact-value" style="font-size: 1rem; line-height: 1.6;">
+                                Maa Baglamukhi Mandir,<br>Nalkheda, Agar Malwa (M.P.)
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pooja-list">
+                        <h3>Temple Services</h3>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Daily Aarti & Darshan</li>
+                            <li><i class="fas fa-check-circle"></i> Mirchi Havan (Shatru Nash)</li>
+                            <li><i class="fas fa-check-circle"></i> Deep Daan on Amavasya</li>
+                            <li><i class="fas fa-check-circle"></i> Tantric Anushthan</li>
+                        </ul>
+                    </div>
+                </aside>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Maa Baglamukhi Mandir</h3>
+                    <p>Nalkheda, Agar Malwa, Madhya Pradesh</p>
+                    <p style="margin-top: 15px; opacity: 0.7;">विश्व प्रसिद्ध प्राचीन सिद्ध पीठ।</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="/">Home</a></li>
+                        <li><a href="about">About Us</a></li>
+                        <li><a href="booking">Pooja Booking</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone" style="color:var(--gold); margin-right:5px;"></i> +91 9754864696</li>
+                        <li><i class="fas fa-envelope" style="color:var(--gold); margin-right:5px;"></i> info@maabaglamukhi.com</li>
+                        <li><i class="fas fa-map-marker-alt" style="color:var(--gold); margin-right:5px;"></i> Nalkheda, MP</li>
+                    </ul>
+                </div>
+            </div>                                  
+            <div class="copyright">
+                &copy; 2025 Maa Baglamukhi Mandir, Nalkheda. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Toggle Mobile Menu
+        function toggleMenu() {
+            const nav = document.getElementById('navLinks');
+            const icon = document.querySelector('.menu-toggle i');
+            nav.classList.toggle('active');
+            
+            if(nav.classList.contains('active')){
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+
+        // WhatsApp Sender
+        function sendToWhatsapp(e) {
+            e.preventDefault();
+            var name = document.getElementById('name').value;
+            var gotra = document.getElementById('gotra').value;
+            var phone = document.getElementById('phone').value;
+            var type = document.getElementById('poojaType').value;
+            var date = document.getElementById('date').value;
+            var msg = document.getElementById('message').value;
+
+            var text = "जय माँ बगलामुखी! 🙏\nNew Booking Request:\n\n" +
+                "*Name:* " + name + "\n" +
+                "*Gotra:* " + gotra + "\n" +
+                "*Phone:* " + phone + "\n" +
+                "*Pooja:* " + type + "\n" +
+                "*Date:* " + date + "\n" +
+                "*Msg:* " + msg;
+
+            window.open("https://wa.me/986?text=" + encodeURIComponent(text), '_blank');
+        }
+    </script>
+</body>
+</html>
